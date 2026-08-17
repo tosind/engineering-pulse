@@ -38,6 +38,33 @@ The assessment presentation is included in the repository:
 
 The deck focuses on the three-agent architecture, deterministic review guardrails, complexity-aware workforce diagnostics, coaching strategy, systemic engineering bottlenecks, and the human judgment boundary.
 
+## Dashboard screenshots
+
+### Overview
+
+Team review health, first-pass approval, high-risk findings, and the current PR decision queue.
+
+![Engineering Pulse Overview](screenshots/01-overview.png)
+
+### Team patterns and bottlenecks
+
+Complexity-adjusted engineer signals alongside recurring review categories, helping distinguish individual coaching needs from possible systemic engineering issues.
+
+![Engineering Pulse Team Patterns](screenshots/01-overview-2.png)
+
+### Multi-agent PR review
+
+Each PR moves through Frontend QA, Backend QA, and Lead Reviewer stages. The screenshot below uses deterministic demo mode so the review outcome is reproducible without depending on external model availability.
+
+![Engineering Pulse Multi-Agent Review](screenshots/02-reviews.png)
+
+### Engineer review history
+
+Review evidence is shown alongside assignment difficulty, first-pass approval, quality trend, and manager follow-up. Raw PR count is deliberately not treated as a performance score.
+
+![Engineering Pulse Engineer Review History](screenshots/03-engineers.png)
+
+
 ## Run locally
 
 Requirements: Node.js 22.5+. The runtime has no third-party dependencies. TypeScript is only used for development and builds.
