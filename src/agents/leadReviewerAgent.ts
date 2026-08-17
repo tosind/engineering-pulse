@@ -29,8 +29,16 @@ export class LeadReviewerAgent {
     const started = Date.now();
     if (config.demoMode) return { ...deterministicDecision(state), durationMs: Date.now() - started };
     const system = `You are the Lead PR Reviewer. Consolidate FE and BE reviews against shared engineering standards. Resolve conflicts using the severity policy. A critical finding always blocks. A high finding normally blocks. Do not treat multiple low findings as more important than a critical security/correctness issue.\n${engineeringStandards}\n${severityPolicy}\nReturn ONLY JSON matching: {"prId":"...","decision":"APPROVE|REQUEST_CHANGES","riskScore":0,"summary":"...","blockingFindings":[],"nonBlockingFindings":[],"conflictResolution":["..."]}. Preserve finding objects exactly.`;
-    const result = await this.client.completeJson(config.models.lead, system, JSON.stringify(state), validateLeadReview);
+    const { demoFindings: _demoFindings, ...reviewablePr } = state.pr;
+    const reviewableState = { ...state, pr: reviewablePr };
+    const result = await this.client.completeJson(config.models.lead, system, JSON.stringify(reviewableState), validateLeadReview);
     const all = [...state.frontendReview.findings, ...state.backendReview.findings];
+
+    result.riskScore = Math.min(
+      100,
+      all.reduce((sum, finding) => sum + weights[finding.severity], 0)
+    );
+    
     const policyBlocking: ReviewFinding[] = all.filter(f => f.severity === 'critical' || f.severity === 'high');
     if (policyBlocking.length && result.decision === 'APPROVE') {
       result.decision = 'REQUEST_CHANGES';

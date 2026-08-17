@@ -1,3 +1,55 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Engineering Pulse</title><link rel="stylesheet" href="/styles.css"></head><body>
-<div class="shell"><aside><div class="brand"><div class="logo"><span></span><span></span><span></span></div><div><b>Engineering Pulse</b><small>PR Review + Team Health</small></div></div><p class="label">WORKSPACE</p><nav><button class="active" data-view="overview">◫ <span>Overview</span></button><button data-view="prs">⑂ <span>PR Reviews</span></button><button data-view="developers">◉ <span>Developer Review History</span></button><button data-view="brief">▤ <span>Manager Brief</span></button></nav><div class="runtime"><div><i></i> Runtime</div><b id="mode">Loading…</b><small>3-agent review pipeline</small></div></aside>
-<main><header><div><p class="eyebrow">TEAM REVIEW CONSOLE</p><h1 id="title">Team Overview</h1><p id="subtitle">Review quality, delivery pace, and patterns worth a manager conversation.</p></div><div class="actions"><div class="dataset"><small>DATASET</small><b>8 seeded PRs</b></div><button id="runAll">Run review pipeline <span>▶</span></button></div></header><section id="content"></section></main></div><script src="/app.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Engineering Pulse</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand-block">
+        <div class="brand-mark" aria-hidden="true">EP</div>
+        <div>
+          <strong>Engineering Pulse</strong>
+          <span>Review activity and team patterns</span>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Primary navigation">
+        <button class="nav-item active" data-view="overview"><span>01</span>Overview</button>
+        <button class="nav-item" data-view="prs"><span>02</span>Reviews</button>
+        <button class="nav-item" data-view="developers"><span>03</span>Engineers</button>
+        <button class="nav-item" data-view="brief"><span>04</span>Manager brief</button>
+      </nav>
+
+      <div class="runtime-panel">
+        <div class="runtime-line"><span class="runtime-dot"></span><span>Runtime</span></div>
+        <code id="mode">loading</code>
+        <small>Frontend QA + Backend QA + Lead Reviewer</small>
+      </div>
+    </aside>
+
+    <main class="workspace">
+      <header class="workspace-header">
+        <div>
+          <p class="kicker">ENGINEERING REVIEW DESK</p>
+          <h1 id="title">Overview</h1>
+          <p id="subtitle">Quality signals, review decisions, and patterns worth a manager conversation.</p>
+        </div>
+        <div class="header-actions">
+          <div class="dataset-note">
+            <span>Mock dataset</span>
+            <strong>8 pull requests</strong>
+          </div>
+          <button id="runAll" class="run-button">Run 8 reviews</button>
+        </div>
+      </header>
+
+      <section id="content" aria-live="polite"></section>
+    </main>
+  </div>
+  <script src="/app.js"></script>
+</body>
+</html>

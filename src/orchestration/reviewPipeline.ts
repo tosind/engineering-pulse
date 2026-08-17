@@ -30,7 +30,8 @@ export class ReviewPipeline {
 
     const developer = getDeveloper(pr.developerId);
     if (!developer) throw new Error(`Developer not found: ${pr.developerId}`);
-    return { pr, developer, frontendReview, backendReview, leadReview };
+    const { demoFindings: _demoFindings, ...publicPr } = pr;
+    return { pr: publicPr as PullRequest, developer, frontendReview, backendReview, leadReview };
   }
 
   async runAll(): Promise<StoredReview[]> {
