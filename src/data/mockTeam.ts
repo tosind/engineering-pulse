@@ -1,15 +1,15 @@
 import { Developer, PullRequest } from '../types';
 
 export const developers: Developer[] = [
-  { id: 'maya', name: 'Maya Chen', level: 'Senior Full Stack Engineer', specialty: 'fullstack', managementContext: 'High-throughput engineer with strong quality and broad ownership.' },
-  { id: 'daniel', name: 'Daniel Okafor', level: 'Mid-level Backend Engineer', specialty: 'backend', managementContext: 'Backend-focused engineer. Dataset is designed to reveal recurring boundary-condition and validation issues.' },
-  { id: 'priya', name: 'Priya Shah', level: 'Senior Engineer', specialty: 'fullstack', managementContext: 'Assigned the highest-complexity work. Lower raw throughput should be interpreted in context.' },
-  { id: 'marcus', name: 'Marcus Lee', level: 'Junior Full Stack Engineer', specialty: 'fullstack', managementContext: 'Early inconsistency followed by visible improvement across consecutive work.' }
+  { id: 'amara', name: 'Amara Nwosu', level: 'Senior Full Stack Engineer', specialty: 'fullstack', managementContext: 'Ships quickly, handles work across the stack, and usually gets through review with little rework.' },
+  { id: 'luka', name: 'Luka Petrovic', level: 'Mid-level Backend Engineer', specialty: 'backend', managementContext: 'Backend-focused engineer whose recent PRs keep tripping over validation and failure-path handling.' },
+  { id: 'nadine', name: 'Nadine El-Khoury', level: 'Senior Engineer', specialty: 'fullstack', managementContext: 'Owns the hardest work in the sample. Her PR count is lower, but the review quality is consistently strong.' },
+  { id: 'theo', name: 'Theo Baptiste', level: 'Junior Full Stack Engineer', specialty: 'fullstack', managementContext: 'Junior engineer who starts with a few avoidable misses and improves on the next assignment.' }
 ];
 
 export const pullRequests: PullRequest[] = [
   {
-    id: 'PR-101', developerId: 'maya', title: 'User profile editor', domain: 'fullstack', complexity: 3,
+    id: 'PR-101', developerId: 'amara', title: 'User profile editor', domain: 'fullstack', complexity: 3,
     description: 'Adds editable user profile fields with optimistic UI and validated API updates.',
     submittedAt: '2026-08-01T09:00:00Z', approvedAt: '2026-08-01T12:00:00Z', linesChanged: 214,
     changedFiles: ['app/profile/ProfileEditor.tsx', 'src/api/profile.ts', 'src/schemas/profile.ts'],
@@ -17,7 +17,7 @@ export const pullRequests: PullRequest[] = [
     demoFindings: { frontend: [{ category:'accessibility', severity:'low', file:'app/profile/ProfileEditor.tsx', line:88, description:'Success status is not announced to assistive technology.', recommendation:'Add an aria-live region for save status.' }], backend: [] }
   },
   {
-    id: 'PR-102', developerId: 'daniel', title: 'Orders API', domain: 'backend', complexity: 3,
+    id: 'PR-102', developerId: 'luka', title: 'Orders API', domain: 'backend', complexity: 3,
     description: 'Creates order submission and retrieval endpoints.',
     submittedAt: '2026-08-02T10:00:00Z', approvedAt: '2026-08-03T11:00:00Z', linesChanged: 176,
     changedFiles: ['src/api/orders.ts', 'src/db/orders.ts'],
@@ -28,7 +28,7 @@ export const pullRequests: PullRequest[] = [
     ] }
   },
   {
-    id: 'PR-103', developerId: 'priya', title: 'Permission evaluation engine', domain: 'backend', complexity: 5,
+    id: 'PR-103', developerId: 'nadine', title: 'Permission evaluation engine', domain: 'backend', complexity: 5,
     description: 'Introduces hierarchical policy evaluation with deny precedence, caching, and audit output.',
     submittedAt: '2026-08-03T08:00:00Z', approvedAt: '2026-08-04T18:00:00Z', linesChanged: 642,
     changedFiles: ['src/auth/policyEngine.ts', 'src/auth/cache.ts', 'tests/policyEngine.test.ts'],
@@ -36,7 +36,7 @@ export const pullRequests: PullRequest[] = [
     demoFindings: { frontend: [], backend: [{ category:'observability', severity:'low', file:'src/auth/cache.ts', line:121, description:'Cache eviction lacks a structured debug event.', recommendation:'Emit an audit-level cache eviction event.' }] }
   },
   {
-    id: 'PR-104', developerId: 'marcus', title: 'Dashboard filters', domain: 'frontend', complexity: 2,
+    id: 'PR-104', developerId: 'theo', title: 'Dashboard filters', domain: 'frontend', complexity: 2,
     description: 'Adds multi-select dashboard filters and URL state synchronization.',
     submittedAt: '2026-08-05T09:30:00Z', approvedAt: '2026-08-06T17:00:00Z', linesChanged: 188,
     changedFiles: ['app/dashboard/Filters.tsx', 'app/dashboard/useFilters.ts'],
@@ -47,7 +47,7 @@ export const pullRequests: PullRequest[] = [
     ], backend: [] }
   },
   {
-    id: 'PR-105', developerId: 'daniel', title: 'Batch payment endpoint', domain: 'backend', complexity: 4,
+    id: 'PR-105', developerId: 'luka', title: 'Batch payment endpoint', domain: 'backend', complexity: 4,
     description: 'Adds batched payment processing with database writes and retry handling.',
     submittedAt: '2026-08-07T08:00:00Z', approvedAt: '2026-08-09T10:00:00Z', linesChanged: 351,
     changedFiles: ['src/api/payments.ts', 'src/db/payments.ts', 'src/services/paymentProcessor.ts'],
@@ -59,7 +59,7 @@ export const pullRequests: PullRequest[] = [
     ] }
   },
   {
-    id: 'PR-106', developerId: 'maya', title: 'Analytics widgets', domain: 'frontend', complexity: 3,
+    id: 'PR-106', developerId: 'amara', title: 'Analytics widgets', domain: 'frontend', complexity: 3,
     description: 'Adds reusable trend and score widgets with loading and empty states.',
     submittedAt: '2026-08-09T09:00:00Z', approvedAt: '2026-08-09T14:00:00Z', linesChanged: 267,
     changedFiles: ['app/analytics/TrendCard.tsx', 'app/analytics/ScoreCard.tsx'],
@@ -67,7 +67,7 @@ export const pullRequests: PullRequest[] = [
     demoFindings: { frontend: [], backend: [] }
   },
   {
-    id: 'PR-107', developerId: 'marcus', title: 'Notification preferences', domain: 'fullstack', complexity: 3,
+    id: 'PR-107', developerId: 'theo', title: 'Notification preferences', domain: 'fullstack', complexity: 3,
     description: 'Adds user notification settings with accessible controls and validated persistence.',
     submittedAt: '2026-08-11T09:00:00Z', approvedAt: '2026-08-11T17:00:00Z', linesChanged: 244,
     changedFiles: ['app/settings/Notifications.tsx', 'src/api/notifications.ts', 'src/schemas/notifications.ts'],
@@ -75,7 +75,7 @@ export const pullRequests: PullRequest[] = [
     demoFindings: { frontend: [{ category:'performance', severity:'low', file:'app/settings/Notifications.tsx', line:77, description:'Derived channel options are rebuilt on every render.', recommendation:'Move static option metadata outside the component.' }], backend: [] }
   },
   {
-    id: 'PR-108', developerId: 'priya', title: 'Background job execution system', domain: 'backend', complexity: 5,
+    id: 'PR-108', developerId: 'nadine', title: 'Background job execution system', domain: 'backend', complexity: 5,
     description: 'Adds idempotent background jobs with retry policy, dead-letter handling, and metrics.',
     submittedAt: '2026-08-12T07:00:00Z', approvedAt: '2026-08-14T15:00:00Z', linesChanged: 711,
     changedFiles: ['src/jobs/runner.ts', 'src/jobs/retryPolicy.ts', 'src/jobs/deadLetter.ts', 'tests/jobs.test.ts'],

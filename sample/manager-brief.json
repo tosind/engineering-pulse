@@ -1,44 +1,44 @@
 {
-  "generatedAt": "2026-08-16T21:44:25.624Z",
-  "headline": "Quality is generally healthy, with one focused backend coaching opportunity and evidence that raw velocity can mislead.",
+  "generatedAt": "2026-08-17T15:12:42.556Z",
+  "headline": "The team is in decent shape. The main concern is a repeat backend review pattern, not a team-wide quality problem.",
   "teamHealthScore": 63,
-  "summary": "Across 8 PRs, the team shows 63% first-pass approval in the seeded review set. The most common review category is input validation. Individual conclusions are intentionally contextualized by work complexity and trend direction.",
+  "summary": "Across 8 seeded PRs, 63% passed review on the first attempt. The most common issue was input validation. I would read the individual results alongside assignment difficulty and whether the trend is getting better or worse.",
   "strengths": [
-    "Maya Chen: strong cross-stack quality and throughput.",
-    "Priya Shah: high-complexity ownership with low severity-adjusted defect density.",
-    "Marcus Lee: improving quality trajectory across sequential work."
+    "Amara Nwosu: strong reviews across frontend and backend work, with little rework.",
+    "Nadine El-Khoury: owns the hardest work in the sample and still keeps review defects low.",
+    "Theo Baptiste: review quality is improving across his two assignments."
   ],
   "watchItems": [
-    "Daniel Okafor: repeated backend boundary-condition and validation findings warrant targeted support.",
-    "Team-level recurring category: input validation."
+    "Luka Petrovic: repeated validation and failure-path misses are worth a focused coaching conversation.",
+    "The most repeated review issue across the sample is input validation."
   ],
   "interventions": [
     {
-      "developer": "Maya Chen",
-      "action": "Increase ownership selectively and use for mentorship without creating a support bottleneck.",
-      "evidence": "Consistently strong quality with solid throughput across mixed work."
+      "developer": "Amara Nwosu",
+      "action": "Give her more ownership, and use her for occasional pairing without turning her into the team help desk.",
+      "evidence": "Review quality stays strong across both frontend and backend work, with very little rework."
     },
     {
-      "developer": "Daniel Okafor",
-      "action": "Pair on the next backend feature, provide a boundary-condition checklist, then reassess after three comparable PRs.",
-      "evidence": "Repeated backend validation and failure-path findings suggest a focused capability gap rather than a broad performance conclusion."
+      "developer": "Luka Petrovic",
+      "action": "Pair on the next backend feature, add a short edge-case checklist, and look again after three similar PRs.",
+      "evidence": "The repeated misses are concentrated in backend validation and failure paths. That points to a specific coaching need, not a general performance problem."
     },
     {
-      "developer": "Priya Shah",
-      "action": "No performance intervention. Review workload distribution and protect time for complex ownership.",
-      "evidence": "Raw throughput is lower, but work complexity is highest and severity-adjusted defect density is very low."
+      "developer": "Nadine El-Khoury",
+      "action": "No performance action. Check whether the hardest work is being distributed fairly and protect time for deep ownership.",
+      "evidence": "She ships fewer PRs because she owns the hardest work in the sample. Even with that complexity, her review defect rate stays low."
     },
     {
-      "developer": "Marcus Lee",
-      "action": "Continue progressive ownership and reinforce the practices that improved state-management and validation quality.",
-      "evidence": "Quality improves materially across consecutive PRs, consistent with successful coaching."
+      "developer": "Theo Baptiste",
+      "action": "Keep increasing ownership in small steps and reinforce the habits that improved state handling and validation.",
+      "evidence": "The second review is noticeably cleaner than the first, which is what I would want to see after coaching."
     }
   ],
   "systemicActions": [
-    "Add a lightweight backend boundary-condition checklist to PR templates.",
-    "Review whether repeated validation findings indicate missing shared validation utilities or unclear standards.",
-    "Compare work complexity before making velocity-based performance conclusions.",
-    "Reassess coaching interventions using the next three comparable PRs rather than a single review."
+    "Add a short backend edge-case checklist to the PR template.",
+    "Check whether the repeated validation misses are partly caused by missing shared helpers or unclear team standards.",
+    "Compare assignment difficulty before treating PR count as a performance signal.",
+    "Judge the coaching on the next three comparable PRs, not on one follow-up review."
   ],
-  "guardrail": "Engineering Pulse surfaces evidence and patterns. It does not diagnose motivation, burnout, attitude, promotion readiness, or termination readiness from PR data alone. Those decisions require manager validation and human context."
+  "guardrail": "PR review history can point to a pattern worth discussing. It cannot tell me whether someone is burned out, disengaged, ready for promotion, or should be managed out. I would need direct context from the engineer, the team, and the work itself."
 }

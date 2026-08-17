@@ -1,12 +1,12 @@
 # Acceptance Tests
 
-- [x] FE QA and BE QA are separate specialized agents.
-- [x] FE and BE execute in parallel.
-- [x] Lead Reviewer receives both specialist outputs in shared state.
-- [x] Critical and high severity findings cannot be silently approved.
-- [x] Eight PRs from four developers are included.
+- [x] Frontend QA and Backend QA are separate specialist agents.
+- [x] Frontend and Backend reviews run in parallel.
+- [x] The Lead Reviewer receives both reviews through shared state.
+- [x] Critical and high-severity findings cannot be silently approved.
+- [x] The dataset contains eight PRs from four developers.
 - [x] Review events are persisted.
-- [x] Analytics exposes productivity, quality, skill-pattern, and team bottleneck signals.
-- [x] Manager Brief recommends interventions without automating HR decisions.
-- [x] Local dashboard exposes overview, PR reviews, developer intelligence, and manager brief.
-- [x] Live OpenRouter models are configurable through environment variables.
+- [x] Analytics reports delivery, quality, recurring skill gaps, and team-level bottlenecks.
+- [x] The Manager Brief suggests follow-up actions without making HR decisions.
+- [x] The local dashboard includes team overview, PR reviews, developer details, and manager brief views.
+- [x] OpenRouter models can be changed through environment variables.

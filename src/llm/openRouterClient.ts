@@ -57,7 +57,7 @@ export class OpenRouterClient {
       headers: {
         'Authorization': `Bearer ${this.apiKey}`,
         'Content-Type': 'application/json',
-        'HTTP-Referer': 'https://github.com/engineering-pulse',
+        'HTTP-Referer': 'https://github.com/tosind/engineering-pulse',
         'X-Title': 'Engineering Pulse'
       },
       body: JSON.stringify({

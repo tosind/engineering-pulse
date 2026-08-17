@@ -1,23 +1,23 @@
 # Engineering Pulse Specification
 
-## Objective
-Build a three-agent OpenRouter PR review pipeline that also converts review events into management intelligence. The system must keep workforce decisions human-owned.
+## Goal
+Build a three-agent PR review pipeline on OpenRouter and use the resulting review history to help an Engineering Manager spot quality patterns, bottlenecks, and coaching needs. The system provides evidence for a manager. It does not make HR decisions.
 
 ## Runtime agents
 1. Frontend QA Agent
 2. Backend QA Agent
 3. Lead PR Reviewer
 
-FE and BE execute in parallel. The Lead Reviewer receives both outputs through an explicit `SharedReviewState` object.
+The Frontend and Backend agents run in parallel. The Lead Reviewer receives both outputs in a `SharedReviewState` object.
 
 ## Required outputs
-- Structured agent reviews
-- Approval or request-changes decision
+- Structured specialist reviews
+- Final approval or request-changes decision
 - Append-only review events
 - Developer metrics
-- Team bottlenecks
+- Team-level recurring issues
 - Manager Brief
-- Four-screen local dashboard
+- Four-view local dashboard
 
-## Guardrail
-PR activity can reveal engineering patterns. It cannot by itself diagnose motivation, burnout, engagement, promotion readiness, or termination readiness.
+## Boundary
+PR activity can reveal engineering patterns. It cannot diagnose motivation, burnout, engagement, promotion readiness, or termination readiness on its own.

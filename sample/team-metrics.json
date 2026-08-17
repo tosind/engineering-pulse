@@ -53,8 +53,8 @@
   ],
   "developers": [
     {
-      "developerId": "maya",
-      "developerName": "Maya Chen",
+      "developerId": "amara",
+      "developerName": "Amara Nwosu",
       "prCount": 2,
       "averageComplexity": 3,
       "complexityPoints": 6,
@@ -71,13 +71,13 @@
         }
       ],
       "qualityTrend": "stable",
-      "managementSignal": "Consistently strong quality with solid throughput across mixed work.",
-      "recommendedAction": "Increase ownership selectively and use for mentorship without creating a support bottleneck.",
+      "managementSignal": "Review quality stays strong across both frontend and backend work, with very little rework.",
+      "recommendedAction": "Give her more ownership, and use her for occasional pairing without turning her into the team help desk.",
       "managerValidationRequired": true
     },
     {
-      "developerId": "daniel",
-      "developerName": "Daniel Okafor",
+      "developerId": "luka",
+      "developerName": "Luka Petrovic",
       "prCount": 2,
       "averageComplexity": 3.5,
       "complexityPoints": 7,
@@ -106,13 +106,13 @@
         }
       ],
       "qualityTrend": "declining",
-      "managementSignal": "Repeated backend validation and failure-path findings suggest a focused capability gap rather than a broad performance conclusion.",
-      "recommendedAction": "Pair on the next backend feature, provide a boundary-condition checklist, then reassess after three comparable PRs.",
+      "managementSignal": "The repeated misses are concentrated in backend validation and failure paths. That points to a specific coaching need, not a general performance problem.",
+      "recommendedAction": "Pair on the next backend feature, add a short edge-case checklist, and look again after three similar PRs.",
       "managerValidationRequired": true
     },
     {
-      "developerId": "priya",
-      "developerName": "Priya Shah",
+      "developerId": "nadine",
+      "developerName": "Nadine El-Khoury",
       "prCount": 2,
       "averageComplexity": 5,
       "complexityPoints": 10,
@@ -133,13 +133,13 @@
         }
       ],
       "qualityTrend": "stable",
-      "managementSignal": "Raw throughput is lower, but work complexity is highest and severity-adjusted defect density is very low.",
-      "recommendedAction": "No performance intervention. Review workload distribution and protect time for complex ownership.",
+      "managementSignal": "She ships fewer PRs because she owns the hardest work in the sample. Even with that complexity, her review defect rate stays low.",
+      "recommendedAction": "No performance action. Check whether the hardest work is being distributed fairly and protect time for deep ownership.",
       "managerValidationRequired": true
     },
     {
-      "developerId": "marcus",
-      "developerName": "Marcus Lee",
+      "developerId": "theo",
+      "developerName": "Theo Baptiste",
       "prCount": 2,
       "averageComplexity": 2.5,
       "complexityPoints": 5,
@@ -164,8 +164,8 @@
         }
       ],
       "qualityTrend": "improving",
-      "managementSignal": "Quality improves materially across consecutive PRs, consistent with successful coaching.",
-      "recommendedAction": "Continue progressive ownership and reinforce the practices that improved state-management and validation quality.",
+      "managementSignal": "The second review is noticeably cleaner than the first, which is what I would want to see after coaching.",
+      "recommendedAction": "Keep increasing ownership in small steps and reinforce the habits that improved state handling and validation.",
       "managerValidationRequired": true
     }
   ],

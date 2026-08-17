@@ -1,31 +1,37 @@
 import { ManagerBrief, TeamMetrics } from '../types';
 
 export function generateManagerBrief(metrics: TeamMetrics): ManagerBrief {
-  const maya = metrics.developers.find(d=>d.developerId==='maya');
-  const daniel = metrics.developers.find(d=>d.developerId==='daniel');
-  const priya = metrics.developers.find(d=>d.developerId==='priya');
-  const marcus = metrics.developers.find(d=>d.developerId==='marcus');
+  const amara = metrics.developers.find(d => d.developerId === 'amara');
+  const luka = metrics.developers.find(d => d.developerId === 'luka');
+  const nadine = metrics.developers.find(d => d.developerId === 'nadine');
+  const theo = metrics.developers.find(d => d.developerId === 'theo');
+  const recurringIssue = metrics.primaryBottleneck.replaceAll('_', ' ');
+
   return {
     generatedAt: new Date().toISOString(),
-    headline: 'Quality is generally healthy, with one focused backend coaching opportunity and evidence that raw velocity can mislead.',
+    headline: 'The team is in decent shape. The main concern is a repeat backend review pattern, not a team-wide quality problem.',
     teamHealthScore: metrics.teamHealthScore,
-    summary: `Across ${metrics.prCount} PRs, the team shows ${metrics.approvalRate}% first-pass approval in the seeded review set. The most common review category is ${metrics.primaryBottleneck.replaceAll('_',' ')}. Individual conclusions are intentionally contextualized by work complexity and trend direction.`,
+    summary: `Across ${metrics.prCount} seeded PRs, ${metrics.approvalRate}% passed review on the first attempt. The most common issue was ${recurringIssue}. I would read the individual results alongside assignment difficulty and whether the trend is getting better or worse.`,
     strengths: [
-      maya ? `${maya.developerName}: strong cross-stack quality and throughput.` : '',
-      priya ? `${priya.developerName}: high-complexity ownership with low severity-adjusted defect density.` : '',
-      marcus ? `${marcus.developerName}: ${marcus.qualityTrend} quality trajectory across sequential work.` : ''
+      amara ? `${amara.developerName}: strong reviews across frontend and backend work, with little rework.` : '',
+      nadine ? `${nadine.developerName}: owns the hardest work in the sample and still keeps review defects low.` : '',
+      theo ? `${theo.developerName}: review quality is ${theo.qualityTrend} across his two assignments.` : ''
     ].filter(Boolean),
     watchItems: [
-      daniel ? `${daniel.developerName}: repeated backend boundary-condition and validation findings warrant targeted support.` : '',
-      `Team-level recurring category: ${metrics.primaryBottleneck.replaceAll('_',' ')}.`
+      luka ? `${luka.developerName}: repeated validation and failure-path misses are worth a focused coaching conversation.` : '',
+      `The most repeated review issue across the sample is ${recurringIssue}.`
     ].filter(Boolean),
-    interventions: metrics.developers.map(d => ({ developer:d.developerName, action:d.recommendedAction, evidence:d.managementSignal })),
+    interventions: metrics.developers.map(developer => ({
+      developer: developer.developerName,
+      action: developer.recommendedAction,
+      evidence: developer.managementSignal
+    })),
     systemicActions: [
-      'Add a lightweight backend boundary-condition checklist to PR templates.',
-      'Review whether repeated validation findings indicate missing shared validation utilities or unclear standards.',
-      'Compare work complexity before making velocity-based performance conclusions.',
-      'Reassess coaching interventions using the next three comparable PRs rather than a single review.'
+      'Add a short backend edge-case checklist to the PR template.',
+      'Check whether the repeated validation misses are partly caused by missing shared helpers or unclear team standards.',
+      'Compare assignment difficulty before treating PR count as a performance signal.',
+      'Judge the coaching on the next three comparable PRs, not on one follow-up review.'
     ],
-    guardrail: 'Engineering Pulse surfaces evidence and patterns. It does not diagnose motivation, burnout, attitude, promotion readiness, or termination readiness from PR data alone. Those decisions require manager validation and human context.'
+    guardrail: 'PR review history can point to a pattern worth discussing. It cannot tell me whether someone is burned out, disengaged, ready for promotion, or should be managed out. I would need direct context from the engineer, the team, and the work itself.'
   };
 }

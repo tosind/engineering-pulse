@@ -29,20 +29,20 @@ export function computeDeveloperMetrics(all: StoredReview[]): DeveloperMetrics[]
     const highRisk = findings.filter(f => f.severity === 'high' || f.severity === 'critical').length;
     const qualityTrend = trendFor(reviews);
 
-    let managementSignal = 'Insufficient evidence for a management signal.';
-    let recommendedAction = 'Continue normal observation and regular 1:1 context gathering.';
-    if (dev.id === 'maya') {
-      managementSignal = 'Consistently strong quality with solid throughput across mixed work.';
-      recommendedAction = 'Increase ownership selectively and use for mentorship without creating a support bottleneck.';
-    } else if (dev.id === 'daniel') {
-      managementSignal = 'Repeated backend validation and failure-path findings suggest a focused capability gap rather than a broad performance conclusion.';
-      recommendedAction = 'Pair on the next backend feature, provide a boundary-condition checklist, then reassess after three comparable PRs.';
-    } else if (dev.id === 'priya') {
-      managementSignal = 'Raw throughput is lower, but work complexity is highest and severity-adjusted defect density is very low.';
-      recommendedAction = 'No performance intervention. Review workload distribution and protect time for complex ownership.';
-    } else if (dev.id === 'marcus') {
-      managementSignal = qualityTrend === 'improving' ? 'Quality improves materially across consecutive PRs, consistent with successful coaching.' : 'Junior engineer still requires context-sensitive coaching.';
-      recommendedAction = 'Continue progressive ownership and reinforce the practices that improved state-management and validation quality.';
+    let managementSignal = 'There is not enough review history here to call a pattern yet.';
+    let recommendedAction = 'Keep watching the next few reviews and use the 1:1 to add context before changing anything.';
+    if (dev.id === 'amara') {
+      managementSignal = 'Review quality stays strong across both frontend and backend work, with very little rework.';
+      recommendedAction = 'Give her more ownership, and use her for occasional pairing without turning her into the team help desk.';
+    } else if (dev.id === 'luka') {
+      managementSignal = 'The repeated misses are concentrated in backend validation and failure paths. That points to a specific coaching need, not a general performance problem.';
+      recommendedAction = 'Pair on the next backend feature, add a short edge-case checklist, and look again after three similar PRs.';
+    } else if (dev.id === 'nadine') {
+      managementSignal = 'She ships fewer PRs because she owns the hardest work in the sample. Even with that complexity, her review defect rate stays low.';
+      recommendedAction = 'No performance action. Check whether the hardest work is being distributed fairly and protect time for deep ownership.';
+    } else if (dev.id === 'theo') {
+      managementSignal = qualityTrend === 'improving' ? 'The second review is noticeably cleaner than the first, which is what I would want to see after coaching.' : 'The review history is still uneven, so I would keep the coaching narrow and practical.';
+      recommendedAction = 'Keep increasing ownership in small steps and reinforce the habits that improved state handling and validation.';
     }
 
     return {

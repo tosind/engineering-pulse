@@ -1,19 +1,21 @@
 # Engineering Pulse
 
-Engineering Pulse is a multi-agent PR review and engineering-management intelligence system. It was built to demonstrate both agent orchestration and the EM responsibility of turning engineering signals into contextual, human-owned interventions.
+Engineering Pulse is a small PR review system built for an Engineering Manager assessment. It sends each pull request through two specialist reviewers, gives both reviews to a Lead Reviewer, and then turns the review history into a manager-facing view of team quality, recurring issues, and coaching opportunities.
 
-## What it does
+The important part is the management layer. PR data can show patterns, but it is not enough to judge motivation, burnout, promotion readiness, or someone's overall performance. Those calls still belong to the manager.
 
-1. Routes each PR to a Frontend QA Agent and Backend QA Agent in parallel.
-2. Combines both results into explicit shared review state.
-3. Sends that state to a Lead PR Reviewer for a policy-aware final decision.
-4. Stores review events and structured findings.
-5. Computes complexity-aware developer and team metrics.
-6. Produces a Manager Brief with recommended interventions and explicit human-decision guardrails.
+## How it works
+
+1. A Frontend QA Agent and Backend QA Agent review the same PR in parallel.
+2. Their findings are stored together in `SharedReviewState`.
+3. The Lead Reviewer applies the team's review policy and returns `APPROVE` or `REQUEST_CHANGES`.
+4. Review events are saved to SQLite.
+5. The analytics layer calculates developer and team metrics with work complexity included.
+6. The Manager Brief turns those metrics into practical follow-up actions.
 
 ## Run locally
 
-Requirements: Node.js 22.5+. There are no third-party runtime dependencies. TypeScript is a development dependency.
+Requirements: Node.js 22.5+. The runtime has no third-party dependencies. TypeScript is only used for development and builds.
 
 ```bash
 npm install
@@ -23,11 +25,11 @@ npm run demo
 
 Open `http://localhost:3088`.
 
-`npm run demo` runs deterministic seeded reviews, which lets the system be evaluated without API credentials.
+`npm run demo` uses the seeded review results, so the project can be evaluated without API credentials.
 
 ## Run with OpenRouter
 
-Set environment variables before starting:
+Set the model and API variables before starting:
 
 ```bash
 export OPENROUTER_API_KEY="..."
@@ -38,7 +40,7 @@ npm run seed
 npm start
 ```
 
-When an OpenRouter key is present, `DEMO_MODE` defaults off. You can explicitly force deterministic mode with `DEMO_MODE=1`.
+When `OPENROUTER_API_KEY` is present, demo mode is disabled by default. Set `DEMO_MODE=1` if you want to force the seeded path.
 
 ## Tests
 
@@ -46,7 +48,7 @@ When an OpenRouter key is present, `DEMO_MODE` defaults off. You can explicitly 
 npm test
 ```
 
-The tests verify blocking severity policy and the management analytics story, including the fact that Priya's high-complexity work should not be judged by raw PR count alone.
+The tests cover the blocking severity policy and the management analysis. One test specifically checks that Nadine's high-complexity work is not treated as weak performance simply because she ships fewer PRs than teammates working on smaller changes.
 
 ## API
 
@@ -60,33 +62,34 @@ The tests verify blocking severity policy and the management analytics story, in
 
 ## Mock team
 
-- Maya Chen: strong cross-stack quality and throughput.
-- Daniel Okafor: recurring backend validation and failure-path issues.
-- Priya Shah: lower raw throughput, highest complexity, low defect density.
-- Marcus Lee: junior engineer with an improving quality trajectory.
+The seeded dataset uses four engineers with different work patterns:
 
-## Management philosophy
+- **Amara Nwosu**, Senior Full Stack Engineer. Fast delivery, broad ownership, and consistently clean reviews.
+- **Luka Petrovic**, Mid-level Backend Engineer. Strong backend focus, with repeated misses around validation and failure paths.
+- **Nadine El-Khoury**, Senior Engineer. Fewer PRs, but the hardest assignments and very low defect density.
+- **Theo Baptiste**, Junior Full Stack Engineer. Starts unevenly, then improves across consecutive PRs.
 
-Velocity without context is not productivity. Engineering Pulse surfaces evidence, recurring technical patterns, and possible interventions. It does not infer motivation, burnout, attitude, promotion readiness, or termination readiness from PR data alone.
+## Management approach
 
+Velocity without context is not productivity. I look at review quality, rework, severity, trend direction, and the complexity of the work before deciding whether a pattern needs coaching or is simply a reflection of assignment difficulty.
+
+The system stops at engineering evidence and manager follow-up. It can surface a pattern worth discussing in a 1:1, but it cannot diagnose burnout, attitude, engagement, promotion readiness, or termination readiness from PR history.
 
 ## Dashboard views
 
-- **Overview** — team health, first-pass approval, risk, developer signals, and recurring bottlenecks.
-- **PR Reviews** — FE QA, BE QA, and Lead Reviewer findings shown side-by-side with severity and final risk.
-- **Developer Intelligence** — complexity-aware quality metrics, management signals, and recommended interventions.
-- **Manager Brief** — executive summary, watch items, systemic actions, and human-decision guardrails.
-
-The dashboard is intentionally optimized for an Engineering Manager audience rather than for raw code-review volume.
+- **Overview:** team health, first-pass approval, risk, developer patterns, and recurring review issues.
+- **PR Reviews:** Frontend QA, Backend QA, and Lead Reviewer results for each PR.
+- **Developer Review History:** complexity-aware quality metrics, trends, and suggested manager follow-up.
+- **Manager Brief:** a short summary of what looks healthy, what deserves attention, and what I would do next.
 
 ## Repository map
 
 - `src/agents`: the three runtime agents
-- `src/orchestration`: shared-state pipeline
-- `src/policies`: shared engineering standards and review policy
-- `src/db`: SQLite event and review store
-- `src/analytics`: complexity-aware engineering metrics
+- `src/orchestration`: the shared-state review pipeline
+- `src/policies`: engineering standards and review policy
+- `src/db`: SQLite review and event storage
+- `src/analytics`: developer and team metrics
 - `src/manager`: Manager Brief generation
-- `src/data`: eight mock PRs and four developer personas
-- `public`: lightweight dashboard
-- `tests`: policy and analytics verification
+- `src/data`: eight mock PRs and four developer profiles
+- `public`: local dashboard
+- `tests`: policy and analytics tests

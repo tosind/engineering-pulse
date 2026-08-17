@@ -14,10 +14,10 @@ function deterministicDecision(state: SharedReviewState): LeadReviewDecision {
     prId: state.pr.id,
     decision: blocking.length ? 'REQUEST_CHANGES' : 'APPROVE',
     riskScore,
-    summary: blocking.length ? `${blocking.length} blocking finding(s) require changes before approval.` : findings.length ? 'No blocking issues. Non-blocking improvements may be addressed separately.' : 'Both specialist reviewers found no material issues.',
+    summary: blocking.length ? `${blocking.length} blocking finding(s) require changes before approval.` : findings.length ? 'No blocking issues. The remaining notes can be handled in follow-up work.' : 'Both specialist reviewers found no material issues.',
     blockingFindings: blocking,
     nonBlockingFindings: nonBlocking,
-    conflictResolution: findings.length ? ['Severity outranks vote count.', 'Critical/high correctness, security, or data-integrity findings block regardless of the other agent result.'] : [],
+    conflictResolution: findings.length ? ['Severity takes precedence over reviewer count.', 'Critical or high-severity correctness, security, and data-integrity findings block even when the other specialist is clean.'] : [],
     model: 'deterministic-policy', durationMs: 0
   };
 }
@@ -36,7 +36,7 @@ export class LeadReviewerAgent {
       result.decision = 'REQUEST_CHANGES';
       result.blockingFindings = policyBlocking;
       result.nonBlockingFindings = all.filter(f => !policyBlocking.includes(f));
-      result.conflictResolution.push('Runtime policy override: critical/high finding cannot be approved by model output.');
+      result.conflictResolution.push('Policy override: a critical or high-severity finding cannot be approved by model output.');
     }
     return { ...result, model: config.models.lead, durationMs: Date.now() - started };
   }
