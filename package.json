@@ -1,0 +1,19 @@
+{
+  "name": "engineering-pulse",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Multi-agent PR review and engineering management intelligence assessment project",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "seed": "npm run build && node dist/src/seed.js",
+    "start": "node dist/src/server.js",
+    "demo": "npm run build && node dist/src/seed.js && node dist/src/server.js",
+    "test": "npm run build && node --test dist/tests/*.test.js"
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}

@@ -1,0 +1,174 @@
+{
+  "prCount": 8,
+  "approvalRate": 63,
+  "averageComplexity": 3.5,
+  "totalFindings": 11,
+  "highRiskFindings": 4,
+  "topBottlenecks": [
+    {
+      "category": "input_validation",
+      "count": 2,
+      "percentage": 18
+    },
+    {
+      "category": "data_integrity",
+      "count": 1,
+      "percentage": 9
+    },
+    {
+      "category": "state_management",
+      "count": 1,
+      "percentage": 9
+    },
+    {
+      "category": "accessibility",
+      "count": 2,
+      "percentage": 18
+    },
+    {
+      "category": "edge_cases",
+      "count": 1,
+      "percentage": 9
+    },
+    {
+      "category": "database_queries",
+      "count": 1,
+      "percentage": 9
+    },
+    {
+      "category": "observability",
+      "count": 1,
+      "percentage": 9
+    },
+    {
+      "category": "performance",
+      "count": 1,
+      "percentage": 9
+    },
+    {
+      "category": "maintainability",
+      "count": 1,
+      "percentage": 9
+    }
+  ],
+  "developers": [
+    {
+      "developerId": "maya",
+      "developerName": "Maya Chen",
+      "prCount": 2,
+      "averageComplexity": 3,
+      "complexityPoints": 6,
+      "firstPassApprovalRate": 100,
+      "totalFindings": 1,
+      "weightedDefectScore": 1,
+      "weightedDefectsPerComplexityPoint": 0.17,
+      "highRiskFindings": 0,
+      "medianApprovalHours": 4,
+      "recurringIssues": [
+        {
+          "category": "accessibility",
+          "count": 1
+        }
+      ],
+      "qualityTrend": "stable",
+      "managementSignal": "Consistently strong quality with solid throughput across mixed work.",
+      "recommendedAction": "Increase ownership selectively and use for mentorship without creating a support bottleneck.",
+      "managerValidationRequired": true
+    },
+    {
+      "developerId": "daniel",
+      "developerName": "Daniel Okafor",
+      "prCount": 2,
+      "averageComplexity": 3.5,
+      "complexityPoints": 7,
+      "firstPassApprovalRate": 0,
+      "totalFindings": 5,
+      "weightedDefectScore": 32,
+      "weightedDefectsPerComplexityPoint": 4.57,
+      "highRiskFindings": 3,
+      "medianApprovalHours": 37.5,
+      "recurringIssues": [
+        {
+          "category": "input_validation",
+          "count": 2
+        },
+        {
+          "category": "edge_cases",
+          "count": 1
+        },
+        {
+          "category": "data_integrity",
+          "count": 1
+        },
+        {
+          "category": "database_queries",
+          "count": 1
+        }
+      ],
+      "qualityTrend": "declining",
+      "managementSignal": "Repeated backend validation and failure-path findings suggest a focused capability gap rather than a broad performance conclusion.",
+      "recommendedAction": "Pair on the next backend feature, provide a boundary-condition checklist, then reassess after three comparable PRs.",
+      "managerValidationRequired": true
+    },
+    {
+      "developerId": "priya",
+      "developerName": "Priya Shah",
+      "prCount": 2,
+      "averageComplexity": 5,
+      "complexityPoints": 10,
+      "firstPassApprovalRate": 100,
+      "totalFindings": 2,
+      "weightedDefectScore": 2,
+      "weightedDefectsPerComplexityPoint": 0.2,
+      "highRiskFindings": 0,
+      "medianApprovalHours": 45,
+      "recurringIssues": [
+        {
+          "category": "observability",
+          "count": 1
+        },
+        {
+          "category": "maintainability",
+          "count": 1
+        }
+      ],
+      "qualityTrend": "stable",
+      "managementSignal": "Raw throughput is lower, but work complexity is highest and severity-adjusted defect density is very low.",
+      "recommendedAction": "No performance intervention. Review workload distribution and protect time for complex ownership.",
+      "managerValidationRequired": true
+    },
+    {
+      "developerId": "marcus",
+      "developerName": "Marcus Lee",
+      "prCount": 2,
+      "averageComplexity": 2.5,
+      "complexityPoints": 5,
+      "firstPassApprovalRate": 50,
+      "totalFindings": 3,
+      "weightedDefectScore": 11,
+      "weightedDefectsPerComplexityPoint": 2.2,
+      "highRiskFindings": 1,
+      "medianApprovalHours": 19.8,
+      "recurringIssues": [
+        {
+          "category": "state_management",
+          "count": 1
+        },
+        {
+          "category": "accessibility",
+          "count": 1
+        },
+        {
+          "category": "performance",
+          "count": 1
+        }
+      ],
+      "qualityTrend": "improving",
+      "managementSignal": "Quality improves materially across consecutive PRs, consistent with successful coaching.",
+      "recommendedAction": "Continue progressive ownership and reinforce the practices that improved state-management and validation quality.",
+      "managerValidationRequired": true
+    }
+  ],
+  "teamHealthScore": 63,
+  "primaryBottleneck": "input_validation"
+}
