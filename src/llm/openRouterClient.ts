@@ -29,10 +29,35 @@ export function validateFinding(value: any): ReviewFinding {
 }
 
 export function validateAgentReview(value: any): Omit<AgentReview, 'model' | 'durationMs'> {
-  if (!value || (value.agent !== 'frontend_qa' && value.agent !== 'backend_qa')) throw new Error('Invalid agent');
-  if (typeof value.prId !== 'string' || (value.status !== 'clean' && value.status !== 'issues_found')) throw new Error('Invalid agent review status');
-  if (typeof value.summary !== 'string' || !Array.isArray(value.findings)) throw new Error('Invalid agent review body');
-  return { agent: value.agent, prId: value.prId, status: value.status, summary: value.summary, findings: value.findings.map(validateFinding) };
+  if (!value || (value.agent !== 'frontend_qa' && value.agent !== 'backend_qa')) {
+    throw new Error('Invalid agent');
+  }
+
+  if (
+    typeof value.prId !== 'string' ||
+    (value.status !== 'clean' && value.status !== 'issues_found')
+  ) {
+    throw new Error('Invalid agent review status');
+  }
+
+  if (typeof value.summary !== 'string' || !Array.isArray(value.findings)) {
+    throw new Error('Invalid agent review body');
+  }
+
+  const findings = value.findings
+  .map(validateFinding)
+  .filter(
+    (finding: ReviewFinding) =>
+      !/^verification(?:_note)?$/i.test(finding.category.trim())
+  );
+
+  return {
+    agent: value.agent,
+    prId: value.prId,
+    status: findings.length ? 'issues_found' : 'clean',
+    summary: value.summary,
+    findings
+  };
 }
 
 export function validateLeadReview(value: any): Omit<LeadReviewDecision, 'model' | 'durationMs'> {
