@@ -1,3 +1,4 @@
+process.env.DEMO_MODE = "1";
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 import { getPullRequest } from '../src/data/mockTeam';

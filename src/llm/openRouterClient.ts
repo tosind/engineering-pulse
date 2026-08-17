@@ -18,8 +18,13 @@ export function validateFinding(value: any): ReviewFinding {
   if (!value || typeof value !== 'object') throw new Error('Finding must be an object');
   if (typeof value.category !== 'string' || !isSeverity(value.severity) || typeof value.file !== 'string') throw new Error('Invalid finding identity fields');
   if (typeof value.description !== 'string' || typeof value.recommendation !== 'string') throw new Error('Invalid finding text');
-  const confidence = Number(value.confidence);
-  if (!Number.isFinite(confidence) || confidence < 0 || confidence > 1) throw new Error('Invalid finding confidence');
+  let confidence = Number(value.confidence);
+  if (Number.isFinite(confidence) && confidence > 1 && confidence <= 100) {
+    confidence /= 100;
+  }
+  if (!Number.isFinite(confidence) || confidence < 0 || confidence > 1) {
+    throw new Error('Invalid finding confidence');
+  }
   return { category: value.category, severity: value.severity, file: value.file, line: value.line == null ? undefined : Number(value.line), description: value.description, recommendation: value.recommendation, confidence };
 }
 
