@@ -30,6 +30,14 @@ The project supports two operating modes:
 
 This split keeps the dashboard reliable for evaluation while still proving that the multi-agent pipeline works with live models.
 
+## Presentation
+
+The assessment presentation is included in the repository:
+
+[Engineering Pulse Presentation](presentation/Engineering_Pulse_fin.pdf)
+
+The deck focuses on the three-agent architecture, deterministic review guardrails, complexity-aware workforce diagnostics, coaching strategy, systemic engineering bottlenecks, and the human judgment boundary.
+
 ## Run locally
 
 Requirements: Node.js 22.5+. The runtime has no third-party dependencies. TypeScript is only used for development and builds.
