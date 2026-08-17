@@ -13,6 +13,23 @@ The important part is the management layer. PR data can show patterns, but it is
 5. The analytics layer calculates developer and team metrics with work complexity included.
 6. The Manager Brief turns those metrics into practical follow-up actions.
 
+## Review safety and operating modes
+
+The model does not have final authority over merge safety.
+
+Specialist agents identify and explain findings, but blocking policy is enforced in code. Critical findings always block. High-severity findings normally block. The Lead Reviewer can explain and consolidate the evidence, but it cannot override those rules.
+
+Risk scoring is also deterministic. Each finding contributes a fixed severity weight, so a model cannot return an arbitrary low score for a clearly risky PR.
+
+Live reviews are kept separate from the seeded demo data. The `demoFindings` field is used only for deterministic demo mode and is removed before any live OpenRouter prompt is sent. It is also excluded from public live review responses.
+
+The project supports two operating modes:
+
+- **Deterministic demo mode** provides a complete, reproducible eight-PR dataset for analytics and presentation.
+- **Live OpenRouter mode** runs the actual Frontend QA, Backend QA, and Lead Reviewer agents against the mock PR input.
+
+This split keeps the dashboard reliable for evaluation while still proving that the multi-agent pipeline works with live models.
+
 ## Run locally
 
 Requirements: Node.js 22.5+. The runtime has no third-party dependencies. TypeScript is only used for development and builds.
@@ -31,14 +48,18 @@ Open `http://localhost:3088`.
 
 Set the model and API variables before starting:
 
+Example configuration:
+
 ```bash
-export OPENROUTER_API_KEY="..."
-export FE_MODEL="your/frontend-model"
-export BE_MODEL="your/backend-model"
-export LEAD_MODEL="your/lead-reviewer-model"
+OPENROUTER_API_KEY="..."
+DEMO_MODE=0
+
+FE_MODEL="google/gemini-3.1-flash-lite"
+BE_MODEL="z-ai/glm-5.2"
+LEAD_MODEL="z-ai/glm-5.2"
+
 npm run seed
 npm start
-```
 
 When `OPENROUTER_API_KEY` is present, demo mode is disabled by default. Set `DEMO_MODE=1` if you want to force the seeded path.
 
@@ -75,12 +96,13 @@ Velocity without context is not productivity. I look at review quality, rework, 
 
 The system stops at engineering evidence and manager follow-up. It can surface a pattern worth discussing in a 1:1, but it cannot diagnose burnout, attitude, engagement, promotion readiness, or termination readiness from PR history.
 
+
 ## Dashboard views
 
-- **Overview:** team health, first-pass approval, risk, developer patterns, and recurring review issues.
-- **PR Reviews:** Frontend QA, Backend QA, and Lead Reviewer results for each PR.
-- **Developer Review History:** complexity-aware quality metrics, trends, and suggested manager follow-up.
-- **Manager Brief:** a short summary of what looks healthy, what deserves attention, and what I would do next.
+- **Overview:** team review health, approval rate, recurring risk, engineer patterns, and the main management signal.
+- **Reviews:** the Frontend QA, Backend QA, shared review path, Lead Reviewer decision, severity, and blocking outcome for each PR.
+- **Engineers:** complexity-aware review history, quality trend, recurring issues, and a suggested manager follow-up for each engineer.
+- **Manager brief:** strengths, watch items, individual interventions, systemic actions, and the human-context guardrail.
 
 ## Repository map
 
