@@ -9,9 +9,9 @@ export function generateManagerBrief(metrics: TeamMetrics): ManagerBrief {
 
   return {
     generatedAt: new Date().toISOString(),
-    headline: 'The team is in decent shape. The main concern is a repeat backend review pattern, not a team-wide quality problem.',
+    headline: metrics.prCount ? `Review history: ${metrics.highRiskFindings} high-risk findings across ${metrics.prCount} PRs.` : 'No completed reviews yet.',
     teamHealthScore: metrics.teamHealthScore,
-    summary: `Across ${metrics.prCount} seeded PRs, ${metrics.approvalRate}% passed review on the first attempt. The most common issue was ${recurringIssue}. I would read the individual results alongside assignment difficulty and whether the trend is getting better or worse.`,
+    summary: `Across ${metrics.prCount} reviewed PRs, ${metrics.approvalRate}% currently have an approval decision. The most common issue was ${recurringIssue}. Read individual results alongside assignment difficulty and direct context from the engineer.`,
     strengths: [
       amara ? `${amara.developerName}: strong reviews across frontend and backend work, with little rework.` : '',
       nadine ? `${nadine.developerName}: owns the hardest work in the sample and still keeps review defects low.` : '',

@@ -1,5 +1,7 @@
 # Engineering Pulse
 
+Production preparation is on this branch: authenticated HTTP access, bounded requests, CI and read-only GitHub PR intake. See [PRODUCTION.md](PRODUCTION.md) for configuration and outstanding deployment gates. This is not evidence of an operating production deployment.
+
 Engineering Pulse is a small PR review system built for an Engineering Manager assessment. It sends each pull request through two specialist reviewers, gives both reviews to a Lead Reviewer, and then turns the review history into a manager-facing view of team quality, recurring issues, and coaching opportunities.
 
 The important part is the management layer. PR data can show patterns, but it is not enough to judge motivation, burnout, promotion readiness, or someone's overall performance. Those calls still belong to the manager.

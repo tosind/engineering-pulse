@@ -1,4 +1,4 @@
-import { AgentReview, LeadReviewDecision, StoredReview } from '../types';
+import { AgentReview, Developer, PullRequest, LeadReviewDecision, StoredReview } from '../types';
 import { config } from '../config';
 import { developers, getDeveloper, getPullRequest, pullRequests } from '../data/mockTeam';
 
@@ -10,8 +10,8 @@ let db: any;
 
 function database() {
   if (db) return db;
-  const dbPath = path.resolve(config.databasePath);
-  fs.mkdirSync(path.dirname(dbPath), { recursive: true });
+  const dbPath = config.databasePath === ':memory:' ? ':memory:' : path.resolve(config.databasePath);
+  if (dbPath !== ':memory:') fs.mkdirSync(path.dirname(dbPath), { recursive: true });
   db = new DatabaseSync(dbPath);
   db.exec('PRAGMA journal_mode = WAL; PRAGMA foreign_keys = ON;');
   initializeSchema();
@@ -58,6 +58,27 @@ export function appendEvent(prId: string, eventType: string, payload: unknown) {
     .run(prId, eventType, JSON.stringify(payload), new Date().toISOString());
 }
 
+export function storePullRequest(pr: PullRequest, developer: Developer) {
+  const conn = database();
+  conn.exec('BEGIN');
+  try {
+    conn.prepare('INSERT INTO developers (id,name,level,specialty,management_context) VALUES (?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET name=excluded.name')
+      .run(developer.id, developer.name, developer.level, developer.specialty, developer.managementContext);
+    conn.prepare('INSERT INTO pull_requests (id,developer_id,title,complexity,submitted_at,approved_at,payload_json) VALUES (?,?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET payload_json=excluded.payload_json')
+      .run(pr.id, pr.developerId, pr.title, pr.complexity, pr.submittedAt, pr.approvedAt, JSON.stringify(pr));
+    conn.exec('COMMIT');
+  } catch (error) { conn.exec('ROLLBACK'); throw error; }
+}
+
+export function getStoredDeveloper(id: string): Developer | undefined {
+  const row = database().prepare('SELECT * FROM developers WHERE id=?').get(id);
+  return row ? { id: row.id, name: row.name, level: row.level, specialty: row.specialty, managementContext: row.management_context } : undefined;
+}
+
+export function getStoredDevelopers(): Developer[] {
+  return database().prepare('SELECT id FROM developers ORDER BY id').all().map((row: any) => getStoredDeveloper(row.id));
+}
+
 export function replaceReview(prId: string, fe: AgentReview, be: AgentReview, lead: LeadReviewDecision) {
   const conn = database();
   conn.exec('BEGIN');
@@ -80,9 +101,10 @@ export function getStoredReviews(): StoredReview[] {
   const conn = database();
   const leadRows = conn.prepare('SELECT * FROM lead_reviews ORDER BY pr_id').all() as any[];
   return leadRows.map(row => {
-    const pr = getPullRequest(row.pr_id);
+    const prRow = conn.prepare('SELECT payload_json FROM pull_requests WHERE id=?').get(row.pr_id);
+    const pr = prRow ? JSON.parse(prRow.payload_json) as PullRequest : undefined;
     if (!pr) throw new Error(`Unknown PR ${row.pr_id}`);
-    const developer = getDeveloper(pr.developerId);
+    const developer = getStoredDeveloper(pr.developerId);
     if (!developer) throw new Error(`Unknown developer ${pr.developerId}`);
     const agents = conn.prepare('SELECT * FROM agent_reviews WHERE pr_id=? ORDER BY agent').all(row.pr_id) as any[];
     const feRow = agents.find(r => r.agent === 'frontend_qa');

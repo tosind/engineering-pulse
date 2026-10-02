@@ -84,6 +84,7 @@ export class OpenRouterClient {
     if (!this.apiKey) throw new Error('OPENROUTER_API_KEY is not configured');
     const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
+      signal: AbortSignal.timeout(60000),
       headers: {
         'Authorization': `Bearer ${this.apiKey}`,
         'Content-Type': 'application/json',
@@ -99,7 +100,7 @@ export class OpenRouterClient {
         ]
       })
     });
-    if (!response.ok) throw new Error(`OpenRouter ${response.status}: ${await response.text()}`);
+    if (!response.ok) throw new Error(`OpenRouter request failed (${response.status})`);
     const payload: any = await response.json();
     const text = payload?.choices?.[0]?.message?.content;
     if (typeof text !== 'string') throw new Error('OpenRouter response did not contain message content');

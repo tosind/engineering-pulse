@@ -26,7 +26,7 @@ export class FrontendQaAgent {
       /(^|\/)(frontend|client|ui|components|pages)(\/|$)/i.test(file)
     );
 
-    if (!hasFrontendSurface) {
+    if (!hasFrontendSurface && result.findings.length === 0) {
       return {
         ...result,
         status: 'clean',
