@@ -231,7 +231,7 @@ runAllButton.addEventListener('click', async () => {
   runAllButton.disabled = true;
   runAllButton.textContent = 'Running reviews...';
   try {
-    const response = await fetch('/api/reviews/run-all', { method: 'POST' });
+    const response = await fetch('/api/reviews/run-all', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
     if (!response.ok) {
       const payload = await response.json().catch(() => ({}));
       throw new Error(payload.error || `Review run failed with ${response.status}`);

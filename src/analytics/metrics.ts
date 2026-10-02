@@ -17,7 +17,8 @@ function trendFor(reviews: StoredReview[]): Trend {
 }
 
 export function computeDeveloperMetrics(all: StoredReview[]): DeveloperMetrics[] {
-  return developers.map(dev => {
+  const team = all.length ? [...new Map(all.map(review => [review.developer.id, review.developer])).values()] : [];
+  return team.map(dev => {
     const reviews = all.filter(r => r.developer.id === dev.id);
     const findings = reviews.flatMap(r => [...r.frontendReview.findings, ...r.backendReview.findings]);
     const complexityPoints = reviews.reduce((n,r)=>n+r.pr.complexity,0);
@@ -54,7 +55,7 @@ export function computeDeveloperMetrics(all: StoredReview[]): DeveloperMetrics[]
       weightedDefectScore,
       weightedDefectsPerComplexityPoint: complexityPoints ? Number((weightedDefectScore/complexityPoints).toFixed(2)) : 0,
       highRiskFindings: highRisk,
-      medianApprovalHours: Number(median(reviews.map(r=>hoursBetween(r.pr.submittedAt,r.pr.approvedAt))).toFixed(1)),
+      medianApprovalHours: Number(median(reviews.filter(r => r.pr.approvedAt).map(r=>hoursBetween(r.pr.submittedAt,r.pr.approvedAt))).toFixed(1)),
       recurringIssues, qualityTrend, managementSignal, recommendedAction, managerValidationRequired: true
     };
   });

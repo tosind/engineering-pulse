@@ -1,7 +1,7 @@
 import { FrontendQaAgent } from '../agents/frontendQaAgent';
 import { BackendQaAgent } from '../agents/backendQaAgent';
 import { LeadReviewerAgent } from '../agents/leadReviewerAgent';
-import { appendEvent, replaceReview } from '../db/database';
+import { appendEvent, replaceReview, getStoredDeveloper } from '../db/database';
 import { PullRequest, SharedReviewState, StoredReview } from '../types';
 import { getDeveloper, pullRequests } from '../data/mockTeam';
 
@@ -19,16 +19,24 @@ export class ReviewPipeline {
       this.frontend.review(pr),
       this.backend.review(pr)
     ]);
+    if (frontendReview.prId !== pr.id || backendReview.prId !== pr.id ||
+        frontendReview.agent !== 'frontend_qa' || backendReview.agent !== 'backend_qa') {
+      throw new Error('Specialist review identity does not match the PR');
+    }
+    if ([...frontendReview.findings, ...backendReview.findings].some(finding => !pr.changedFiles.includes(finding.file))) {
+      throw new Error('Specialist finding refers to a file outside the supplied diff');
+    }
     appendEvent(pr.id, 'agent.frontend_completed', frontendReview);
     appendEvent(pr.id, 'agent.backend_completed', backendReview);
 
     const shared: SharedReviewState = { pr, frontendReview, backendReview, startedAt };
     appendEvent(pr.id, 'review.shared_state_ready', { frontendFindingCount: frontendReview.findings.length, backendFindingCount: backendReview.findings.length });
     const leadReview = await this.lead.review(shared);
+    if (leadReview.prId !== pr.id) throw new Error('Lead review identity does not match the PR');
     appendEvent(pr.id, 'lead_review.completed', leadReview);
     replaceReview(pr.id, frontendReview, backendReview, leadReview);
 
-    const developer = getDeveloper(pr.developerId);
+    const developer = getStoredDeveloper(pr.developerId) || getDeveloper(pr.developerId);
     if (!developer) throw new Error(`Developer not found: ${pr.developerId}`);
     const { demoFindings: _demoFindings, ...publicPr } = pr;
     return { pr: publicPr as PullRequest, developer, frontendReview, backendReview, leadReview };
